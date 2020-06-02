@@ -15,9 +15,9 @@
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" spacing="10.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" VBox.vgrow="ALWAYS">
          <children>
-            <TextField promptText="File Path" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefWidth="60.0" style="-fx-font-size: 14; -fx-border-radius: 5; -fx-background-radius: 5;" text="Clear" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefWidth="100.0" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;" text="Search" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="pathField" promptText="File Path" HBox.hgrow="ALWAYS" />
+            <Button fx:id="clearPathButton" mnemonicParsing="false" onAction="#clearPath" prefWidth="60.0" style="-fx-font-size: 14; -fx-border-radius: 5; -fx-background-radius: 5;" text="Clear" HBox.hgrow="ALWAYS" />
+            <Button fx:id="searchPathButton" mnemonicParsing="false" onAction="#searchPath" prefWidth="100.0" style="-fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;" text="Search" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -28,7 +28,7 @@
             <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label style="-fx-alignment: center; -fx-font-weight: bold; -fx-font-size: 24;" text="Explorer" />
-                  <ListView VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="explorerListView" onMousePressed="#openDir" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
             <VBox alignment="CENTER" maxWidth="150.0" minWidth="-Infinity" prefWidth="80.0" spacing="10.0" HBox.hgrow="ALWAYS">
@@ -39,15 +39,15 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
                <children>
-                  <Button maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&gt;" />
-                  <Button maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&lt;" />
-                  <Button maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14;" text="Clear" />
+                  <Button fx:id="addFileButton" maxWidth="100.0" mnemonicParsing="false" onAction="#addFile" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&gt;" />
+                  <Button fx:id="removeFileButton" maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&lt;" />
+                  <Button fx:id="clearFileButton" maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14;" text="Clear" />
                </children>
             </VBox>
             <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label style="-fx-alignment: center; -fx-font-weight: bold; -fx-font-size: 24;" text="Selected Items" />
-                  <ListView VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="selectedListView" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>
@@ -64,8 +64,8 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="150.0" spacing="10.0">
                      <children>
-                        <CheckBox mnemonicParsing="false" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
-                        <PasswordField disable="true" promptText="Password" style="-fx-border-radius: 5; -fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
+                        <CheckBox fx:id="encryptCheckBox" mnemonicParsing="false" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
+                        <PasswordField fx:id="passwordField" disable="true" promptText="Password" style="-fx-border-radius: 5; -fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
@@ -83,12 +83,12 @@
             </VBox>
             <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button maxHeight="60.0" maxWidth="600.0" mnemonicParsing="false" style="-fx-min-height: 50; -fx-min-width: 150; -fx-font-size: 24; -fx-font-weight: bold;" text="ZIP" VBox.vgrow="ALWAYS">
+                  <Button fx:id="executeButton" maxHeight="60.0" maxWidth="600.0" mnemonicParsing="false" style="-fx-min-height: 50; -fx-min-width: 150; -fx-font-size: 24; -fx-font-weight: bold;" text="ZIP" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <ProgressBar maxWidth="600.0" minHeight="-Infinity" minWidth="150.0" prefHeight="20.0" progress="0.0" />
+                  <ProgressBar fx:id="progressBar" maxWidth="600.0" minHeight="-Infinity" minWidth="150.0" prefHeight="20.0" progress="0.0" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
