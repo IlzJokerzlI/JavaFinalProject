@@ -64,7 +64,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="150.0" spacing="10.0">
                      <children>
-                        <CheckBox fx:id="encryptCheckBox" mnemonicParsing="false" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
+                        <CheckBox fx:id="encryptCheckBox" mnemonicParsing="false" onAction="#setEncryptStatus" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
                         <PasswordField fx:id="passwordField" disable="true" promptText="Password" style="-fx-border-radius: 5; -fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>

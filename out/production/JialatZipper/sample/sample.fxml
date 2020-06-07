@@ -40,8 +40,8 @@
                </padding>
                <children>
                   <Button fx:id="addFileButton" maxWidth="100.0" mnemonicParsing="false" onAction="#addFile" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&gt;" />
-                  <Button fx:id="removeFileButton" maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&lt;" />
-                  <Button fx:id="clearFileButton" maxWidth="100.0" mnemonicParsing="false" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14;" text="Clear" />
+                  <Button fx:id="removeFileButton" maxWidth="100.0" mnemonicParsing="false" onAction="#removeFile" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14; -fx-font-weight: bold; -fx-border-radius: 3; -fx-background-radius: 3;" text="&lt;" />
+                  <Button fx:id="clearFileButton" maxWidth="100.0" mnemonicParsing="false" onAction="#clearFile" style="-fx-min-width: 60; -fx-min-height: 30; -fx-font-size: 14;" text="Clear" />
                </children>
             </VBox>
             <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="ALWAYS">
@@ -64,7 +64,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="150.0" spacing="10.0">
                      <children>
-                        <CheckBox fx:id="encryptCheckBox" mnemonicParsing="false" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
+                        <CheckBox fx:id="encryptCheckBox" mnemonicParsing="false" onAction="#setEncryptStatus" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
                         <PasswordField fx:id="passwordField" disable="true" promptText="Password" style="-fx-border-radius: 5; -fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
