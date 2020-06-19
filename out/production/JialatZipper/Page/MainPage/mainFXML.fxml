@@ -2,17 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fffae3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainPage.MainController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fffae3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Page.MainPage.MainController">
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" spacing="10.0" style="-fx-border-radius: 5; -fx-background-radius: 5;" VBox.vgrow="ALWAYS">
          <children>
@@ -36,12 +33,6 @@
                            <children>
                               <Label style="-fx-font-size: 14; -fx-font-weight: bold;" text="Mode" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                               <ComboBox fx:id="comboBox" onAction="#setZip" HBox.hgrow="ALWAYS" />
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <CheckBox fx:id="encryptCheckBox" mnemonicParsing="false" onAction="#setEncryptStatus" style="-fx-font-size: 14; -fx-font-weight: bold;" text="Encrypt" />
-                              <PasswordField fx:id="passwordField" disable="true" maxWidth="1.7976931348623157E308" promptText="Password" style="-fx-border-radius: 5; -fx-background-radius: 5;" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
@@ -80,7 +71,6 @@
                               <Insets />
                            </VBox.margin>
                         </Button>
-                        <ProgressBar fx:id="progressBar" maxWidth="600.0" progress="0.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
