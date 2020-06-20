@@ -1,6 +1,6 @@
 package Jialat.MainPage;
 
-import Jialat.SubPageController;
+import Jialat.SubPage.SubPageController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,8 +50,8 @@ public class MainPageController implements Initializable{
 
     private boolean isZip = true; //Determines the process to zip or unzip
 
-    Map<String, File> tempChildrenPaths = new LinkedHashMap<String, File>(); //The files in the explorer list (current map)
-    Map<String, File> selectedChildrenPaths = new LinkedHashMap<String, File>(); //The selected files map (selected map)
+    private Map<String, File> tempChildrenPaths = new LinkedHashMap<String, File>(); //The files in the explorer list (current map)
+    private Map<String, File> selectedChildrenPaths = new LinkedHashMap<String, File>(); //The selected files map (selected map)
 
 
     /** initialize Method
@@ -190,8 +190,8 @@ public class MainPageController implements Initializable{
                 }
                 displayFiles(); //Updates the explorer list view and path text field
             } catch (NullPointerException ex) {
-                //Catch NULL POINTER EXCEPTION when the selected item is null (empty)
-                ex.printStackTrace(); //Output the message into console
+                //Catches NULL POINTER EXCEPTION when the selected item is null (empty)
+                System.out.println(ex.getMessage()); //Outputs the message into console
             }
         }
     }
@@ -262,10 +262,10 @@ public class MainPageController implements Initializable{
             if (!this.selectedChildrenPaths.isEmpty()) {
                 if (this.isZip) {
                     //Zip mode
-                    loader.setLocation(getClass().getResource("../ZipSubPage/zipmenuFXML.fxml")); //Sets to zip menu controller
+                    loader.setLocation(getClass().getResource("../SubPage/zipmenuFXML.fxml")); //Sets to zip menu controller
                 } else {
                     //Unzip mode
-                    loader.setLocation(getClass().getResource("../UnzipSubPage/unzipmenuFXML.fxml")); //Sets to unzip menu controller
+                    loader.setLocation(getClass().getResource("../SubPage/unzipmenuFXML.fxml")); //Sets to unzip menu controller
                 }
 
                 Parent subRoot = loader.load(); //Assign loader
@@ -280,24 +280,28 @@ public class MainPageController implements Initializable{
 
                 //When the sub page is closed (hidden)
                 subStage.setOnHiding((event) -> {
+                    ArrayList<String> removedFiles = new ArrayList<String>();
                     this.displayFiles(); //Refresh the explorer list view if any changes are made
                     this.selectedListView.getItems().clear(); //Clear the selected list view
                     if (!this.selectedChildrenPaths.isEmpty()) {
                         //If the selected map is not empty
-                        for (String key : this.selectedChildrenPaths.keySet()) {
-                            //Removes the non-existence file from the selected map
-                            if (!this.selectedChildrenPaths.get(key).exists()) {
-                                this.selectedChildrenPaths.remove(key);
+                        this.selectedChildrenPaths.forEach((fileName, file) -> {
+                            //Iterates through the selectedChildrenPaths
+                            if (!file.exists()) {
+                                //If the file of the selected key ceases to exist
+                                removedFiles.add(fileName); //Add the key to the removeFile list
                             }
-                        }
+                        });
+
+                        removedFiles.forEach((fileName) -> this.selectedChildrenPaths.remove(fileName)); //Removes the non-existence file from the selected map
                         this.selectedListView.getItems().addAll(this.selectedChildrenPaths.keySet()); //Updates the selected list view from the updated selected map
                     }
                 });
                 subStage.show(); //Shows the sub page
             }
         } catch (IOException ex) {
-            //Catch IO exception and output the message into console
-            ex.printStackTrace();
+            //Catches IO exception
+            ex.getMessage(); //Outputs the message into console
         }
     }
 }
