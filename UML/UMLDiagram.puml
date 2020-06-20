@@ -1,0 +1,147 @@
+@startuml
+
+class Task
+note left: Imported from javafx.concurrent.Task
+
+Interface Initializable
+note right: Imported from javafx.fxml.Initializable
+
+package "Jialat" #DDDDDD {
+    package "MainPage" #FAFAFA {
+        class MainPageController implements Initializable {
+            .. FXML ..
+            + pathField: TextField
+            + clearPathButton: Button
+            + searchPathButton: Button
+            + addFileButton: Button
+            + removeFileButton: Button
+            + clearFileButton: Button
+            + explorerListView: ListView<String>
+            + selectedListView: ListView<String>
+            + comboBox: ComboBox<String>
+            + executeButton: Button
+
+            .. Property ..
+            - defaultPath: String
+            - currentPath: String
+            - isZip: boolean
+            - tempChildrenPaths: Map<String, File>
+            - selectedChildrenPaths: Map<String, File>
+
+            == Method ==
+            + ^initialize(location: URL, resources: ResourceBundle): void
+            + toDefault(): void
+            + setZip(): void
+            + displayFiles(): void
+            + clearPath(): void
+            + searchPath(): void
+            + openDir(MouseEvent event): void
+            + addFile(): void
+            + removeFile(): void
+            + clearFile(): void
+            + execute(): void
+        }
+    }
+
+
+    package "SubPage" #FAFAFA {
+        MainPageController "1" -- "1" ZipSubPageController: contains
+        MainPageController "1" -- "1" UnzipSubPageController: contains
+
+
+        interface SubPageController implements Initializable {
+            == Method ==
+            + ^initialize(URL location, ResourceBundle resources): void
+            + initData(Stage stage, String currentPath, Map<String, File> selectedChildrenPaths): void
+            + onWindowDragged(): void
+            + freezeWindowProperties(): void
+            + onExecuteComplete(): void
+            + execute(): void
+            + setExecuteStatus(): void
+            + checkNameExist(): void
+            + onPathFieldEdited(): void
+            + onPathFieldComplete(): void
+            + onChoosePath(): void
+            + onNameFieldEdited(): void
+            + onPasswordFieldEdited(): void
+            + setEncryptStatus(): void
+            + closeWindow(): void
+        }
+
+
+        class ZipSubPageController extends SubPageController {
+            .. FXML ..
+            + zipPathField: TextField
+            + zipPathChooserButton: Button
+            + pathErrorLabel: Label
+            + fileNameField: TextField
+            + fileNameErrorLabel: Label
+            + encryptCheckBox: CheckBox
+            + passwordField: PasswordField
+            + passwordError: Label
+            + progressBar: ProgressBar
+            + executeZipButton: Button
+            + cancelButton: Button
+
+            .. Property ..
+            # stage: Stage
+            # selectedChildrenPaths: Map<String, File>
+            # isPathValid: boolean
+            # isNameValid: boolean
+            # isPasswordValid: boolean
+            # currentPath: String
+            # xOffSet: double
+            # yOffset: double
+            # dialogs: Dialogs
+        }
+
+
+        class UnzipSubPageController extends SubPageController {
+            .. FXML ..
+            + zipPathField: TextField
+            + zipPathChooserButton: Button
+            + pathErrorLabel: Label
+            + fileNameField: TextField
+            + fileNameErrorLabel: Label
+            + progressBar: ProgressBar
+            + executeZipButton: Button
+            + cancelButton: Button
+
+            .. Property ..
+            # stage: Stage
+            # selectedChildrenPaths: Map<String, File>
+            # isPathValid: boolean
+            # isNameValid: boolean
+            # currentPath: String
+            # xOffSet: double
+            # yOffset: double
+            # dialogs: Dialogs
+        }
+    }
+
+
+    class Dialogs {
+        == Method ==
+        + password(): String
+        + alert(headerText: String, contentText: String): void
+    }
+
+
+    class ProgressTask extends Task {
+        .. Property ..
+        - progressBar: ProgressBar
+        - progressMonitor: ProgressMonitor
+
+        == Method ==
+        + ProgressTask(progressBar: ProgressBar, progressMonitor: ProgressMonitor)
+        # ^call(): Object
+    }
+
+
+    ZipSubPageController "1" o-- "1" Dialogs: has
+    UnzipSubPageController "1" o-- "1" Dialogs: has
+    ZipSubPageController "1" -- "1" ProgressTask: contains
+    UnzipSubPageController "1" -- "1" ProgressTask: contains
+}
+
+@enduml
