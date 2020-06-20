@@ -9,12 +9,13 @@ import java.util.Optional;
 
 /** Dialog Class
  *  The Dialog class contains all the dialogs used in the pages such as the Password Dialog (asks for password) and Alert Dialog (shows alert)
- * **/
+ */
 public class Dialogs {
 
     /** password Method
+     * @return String
      *  The password method is called whenever password is needed from the user. It will shows a pop up which asks password from the user and returns upon completed.
-     * **/
+     */
     public String password() {
         Dialog<String> dialog = new Dialog<String>(); //Initiation of Dialog object
         PasswordField passwordField = new PasswordField(); //Password field input
@@ -55,8 +56,10 @@ public class Dialogs {
 
 
     /** alert Method
+     * @param headerText: Text for alert header
+     * @param contentText: Text for alert content
      *  The alert method is called whenever a user alert is necessary in the pages. I will simply show the alert message and wait for the confirmation from the user.
-     * **/
+     */
     public void alert(String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.WARNING); //Instantiate Alert Object
         alert.setHeaderText(headerText); //Sets the header

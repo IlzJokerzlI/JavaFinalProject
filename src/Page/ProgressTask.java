@@ -7,7 +7,7 @@ import net.lingala.zip4j.progress.ProgressMonitor;
 
 /** ProgressTask Class
  *  The ProgressTask Class extends from Task Class. It is used to trace the progress of a task and update the progress bar.
- * **/
+ */
 public class ProgressTask extends Task {
     private final ProgressBar progressBar; //Progress bar
     private final ProgressMonitor progressMonitor; //Progress monitor
@@ -21,8 +21,9 @@ public class ProgressTask extends Task {
 
 
     /** call Method
+     * @return Object
      *  Inherited from Task Class and overrided. It is called to start the progress tracing and update the progress bar.
-     * **/
+     */
     @Override
     protected Object call() {
         while (!progressMonitor.getState().equals(ProgressMonitor.State.READY)) {

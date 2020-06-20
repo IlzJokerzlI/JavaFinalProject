@@ -28,16 +28,16 @@ import java.util.Map;
 
 /** MainController Class
  *  The main controller class is the main page of the Jialat Zipper Application. It is mainly used to find any files files to zip or zip files to unzip.
- * **/
+ */
 public class MainController implements Initializable{
 
     public TextField pathField; // Text field to search for path
     public Button clearPathButton; //Button to clear path text field
     public Button searchPathButton; //Button to search path text field
 
-    public Button addFileButton; //Button to add file to selected list
-    public Button removeFileButton; //Button to remove file from selected list
-    public Button clearFileButton; //Button to clear the selected list
+    public Button addFileButton; //Button to add file to selected map
+    public Button removeFileButton; //Button to remove file from selected map
+    public Button clearFileButton; //Button to clear the selected map
 
     public ListView<String> explorerListView; //The list view for exploring files
     public ListView<String> selectedListView; //The list view for selected files
@@ -50,13 +50,13 @@ public class MainController implements Initializable{
 
     private boolean isZip = true; //Determines the process to zip or unzip
 
-    Map<String, File> tempChildrenPaths = new LinkedHashMap<String, File>(); //The files in the explorer list (current list)
-    Map<String, File> selectedChildrenPaths = new LinkedHashMap<String, File>(); //The selected files (selected list)
+    Map<String, File> tempChildrenPaths = new LinkedHashMap<String, File>(); //The files in the explorer list (current map)
+    Map<String, File> selectedChildrenPaths = new LinkedHashMap<String, File>(); //The selected files map (selected map)
 
 
     /** initialize Method
      *  The initialize method is implemented from Initializeable Interface, it is used to initialize a controller from its root element. This method allows to perform several task when the fxml is successfully loaded. There are 2 task to perform, setZip() and displayFiles(). The setZip() sets the content of combo box and selects default zip mode, the displayFiles() sets the initial content of explorer list view, which is the files contained in the current path (default path).
-     * **/
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setZip(); //Sets zip mode
@@ -66,11 +66,11 @@ public class MainController implements Initializable{
 
     /** toDefault Method
      *  This methods sets everything to its default just like how it is when the application is started. This includes setting the path to default path, clear all selected items and re-showing the default explorer list view.
-     * **/
+     */
     public void toDefault() {
         this.currentPath = defaultPath; //Sets current path to default path
         this.tempChildrenPaths.clear(); //Clear the files in explorer list
-        this.selectedChildrenPaths.clear(); //Clear the files in selected list
+        this.selectedChildrenPaths.clear(); //Clear the files in selected map
         this.selectedListView.getItems().clear(); //Clear the selected list view
         displayFiles(); //Re-showing the explorer list view with files in the default path
     }
@@ -78,7 +78,7 @@ public class MainController implements Initializable{
 
     /** setZip Method
      *  The setZip method sets the mode of the application which can be switches between zip and unzip mode. The zip mode lets user to zip files and the unzip mode lets the user unzip a zip file. When zip mode is selected, it will sets isZip to true and list view selection model to be able to select multiple files. When unzip mode is selected, it will sets isZip to false and only allows selection model to only be able to select one file at a time. The default mode is zip which makes the isZip's default value true.
-     * **/
+     */
     public void setZip() {
         this.explorerListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //Sets the explorer list view to be able to select multiple files
         this.selectedListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //Sets the selected list view to be able to select multiple files
@@ -105,7 +105,7 @@ public class MainController implements Initializable{
     /** displayFiles method
      *  This method displays all the files in the directory of current path into the explorer list as well as updates the path text field, it will be updated whenever the current path is changed. The display depends on which mode is selected, all folders will always be shown in both mods while the hidden files will remain hidden and will not be displayed in any of the modes. The zip mode displays all available type of files. On the other hand, unzip mode only displays available zip type files.
      *  The method will first clear the explorer list view and the tempChildrenListView (which contains the list of files in the previous path). Then, the files in the current path will be filtered before inserted into tempChildrenListView (name of file being the key and File Object being the value). Finally, the name of files in the tempChildrenListView will be taken and shown in the explorer list view as well as updates the path text field.
-     * **/
+     */
     public void displayFiles() {
         File currentDir = new File(this.currentPath); //Instantiate a new file (directory) from the current path
 
@@ -140,7 +140,7 @@ public class MainController implements Initializable{
 
     /** clearPath Method
      *  Sets the current path to default path and calls displayFiles() to update the displayed files as well as the path text field whenever the clearPathButton is pressed.
-     * **/
+     */
     public void clearPath() {
         this.currentPath = this.defaultPath; //Sets the current path to default path
         displayFiles(); //Calls displayFiles method
@@ -149,7 +149,7 @@ public class MainController implements Initializable{
 
     /** searchPath Method
      *  Search for the directory of path inserted in the path text field. This method is triggered by searchPathButton. It will sets the current path into the path in the path text field and calls display files to update the displayed files as well as the path text field if the file of the searched path exist and is a directory. Otherwise, it will set the path text field to current path.
-     * **/
+     */
     public void searchPath() {
         File searchedFile = new File(this.pathField.getText()); //Instantiate a new file from the path inserted into the path text field
 
@@ -164,10 +164,11 @@ public class MainController implements Initializable{
 
 
     /** openDir Method
-     *  The openDir method is triggered when the content of explore list view is being double clicked. If the the content clicked is ".." (back), the current path will be set to the path contained in the value with key ".." inside the tempChildrenPaths (parrent path of the directory of the current path). If the content clicked is a directory, the current path will be set into the path contained in the value with key (name of selected item) inside the tempChildrenPath, else, it will calls addFile(). Then, displayFiles() will be called to update the explorer list view display and updates the path text field.
-     * **/
+     * @param event: Mouse clicked event
+     *  The openDir method is triggered when the content of explore list view is being double clicked. If the the content clicked is ".." (back), the current path will be set to the path contained in the value with key ".." inside the tempChildrenPaths (parent path of the directory of the current path). If the content clicked is a directory, the current path will be set into the path contained in the value with key (name of selected item) inside the tempChildrenPath, else, it will calls addFile(). Then, displayFiles() will be called to update the explorer list view display and updates the path text field.
+     */
     public void openDir(MouseEvent event) {
-        //Checks if it is dpuble clicked
+        //Checks if it is double clicked
         if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
             //TRY-CATCH
             try {
@@ -197,9 +198,9 @@ public class MainController implements Initializable{
 
 
     /** addFile Method
-     *  The addFile method is used to add files selected from the explorer list view into the selectedChildrenPath list or the selected list view. This method is triggered either by a double click in the explorer list view or the addFileButton is pressed. Every time files are being added, the selected list view will always be cleared, the selected files will be filtered (must not empty or ".." (back)) before added into the selectedChildrenPath list. Then, the file name of added files inside selectedChildrenPath will be taken and shown in the selected list view.
-     *  Note that in the zip mode, user is allowed to add multiple files into the selected list. However, it is not allowed in unzip mode as the unzip only supports single file unzip.
-     * **/
+     *  The addFile method is used to add files selected from the explorer list view into the selectedChildrenPath map or the selected list view. This method is triggered either by a double click in the explorer list view or the addFileButton is pressed. Every time files are being added, the selected list view will always be cleared, the selected files will be filtered (must not empty or ".." (back)) before added into the selectedChildrenPath map. Then, the file name of added files inside selectedChildrenPath will be taken and shown in the selected list view.
+     *  Note that in the zip mode, user is allowed to add multiple files into the selected map. However, it is not allowed in unzip mode as the unzip only supports single file unzip.
+     */
     public void addFile() {
         List<String> selectedItems = this.explorerListView.getSelectionModel().getSelectedItems(); //Initialize the selected items list
 
@@ -208,16 +209,16 @@ public class MainController implements Initializable{
         //Iterates through each item of selected items for checking
         for (String fileName : selectedItems) {
             if (!fileName.isEmpty() && !this.selectedChildrenPaths.containsKey(fileName) && !fileName.equals("..")) {
-                //If it is not empty nor equals to ".." (back) nor already exist in the selected list
+                //If it is not empty nor equals to ".." (back) nor already exist in the selected map
                 if (this.isZip) {
                     //Zip mode
-                    this.selectedChildrenPaths.put(fileName, this.tempChildrenPaths.get(fileName)); //Add multiple files into the selectedChildrenPath (selected list)
+                    this.selectedChildrenPaths.put(fileName, this.tempChildrenPaths.get(fileName)); //Add multiple files into the selectedChildrenPath (selected map)
                 } else {
                     //Unzip mode
                     if (this.tempChildrenPaths.get(fileName).isFile()) {
                         //Checks if it is a file
-                        this.selectedChildrenPaths.clear(); //Clear the selectedChildrenPaths (selected list)
-                        this.selectedChildrenPaths.put(fileName, this.tempChildrenPaths.get(fileName)); //Add the selected file into the selected list
+                        this.selectedChildrenPaths.clear(); //Clear the selectedChildrenPaths (selected map)
+                        this.selectedChildrenPaths.put(fileName, this.tempChildrenPaths.get(fileName)); //Add the selected file into the selected map
                     }
                 }
             }
@@ -229,7 +230,7 @@ public class MainController implements Initializable{
 
     /** removeFile Method
      *  Unlike the addFile method, this method is used to remove a file from selected list view or selectedChildrenPaths and it is triggered only when the removeFileButton is pressed, this is to prevent the file being accidentally being removed by a double click. This method will remove any selected items from the selected list view and selectedChildrenPaths.
-     * **/
+     */
     public void removeFile() {
         for (String item : this.selectedListView.getSelectionModel().getSelectedItems()) {
             this.selectedChildrenPaths.remove(item); //Removes the files from selectedChildrenPaths
@@ -242,22 +243,22 @@ public class MainController implements Initializable{
     /** clearFile Method
      *  The clear file method is used whenever user wants to clear all items (files) in the selected list view or the selectedChildrenPaths. This is triggered by the clearFileButton.
      *
-     * **/
+     */
     public void clearFile() {
         this.selectedListView.getItems().clear(); //Clear selected list view
-        this.selectedChildrenPaths.clear(); //Clear selectedChildrenPaths (selected list)
+        this.selectedChildrenPaths.clear(); //Clear selectedChildrenPaths (selected map)
     }
 
 
     /** execute Method
-     *  The execute method can only be functional when the selectedChildrenPaths is not empty. If so, the method will show a new windows in which its content depends on the selected mode. The ZipSubPage will be shown if it is in zip mode and UnzipSubPage if it is unzip mode. A method from the SubPage will be called to pass in 3 data, the stage of the SubPage, current path, and the selectedChildrenPaths (selected list). Once the sub page is closed, the main page will be refreshed.
-     * **/
+     *  The execute method can only be functional when the selectedChildrenPaths is not empty. If so, the method will show a new windows in which its content depends on the selected mode. The ZipSubPage will be shown if it is in zip mode and UnzipSubPage if it is unzip mode. A method from the SubPage will be called to pass in 3 data, the stage of the SubPage, current path, and the selectedChildrenPaths (selected map). Once the sub page is closed, the main page will be refreshed.
+     */
     public void execute() {
         //TRY-CATCH
         try {
             FXMLLoader loader = new FXMLLoader(); //Instantiate a new FXML Loader
 
-            //Checks if the selected list is empty
+            //Checks if the selected map is empty
             if (!this.selectedChildrenPaths.isEmpty()) {
                 if (this.isZip) {
                     //Zip mode
@@ -282,14 +283,14 @@ public class MainController implements Initializable{
                     this.displayFiles(); //Refresh the explorer list view if any changes are made
                     this.selectedListView.getItems().clear(); //Clear the selected list view
                     if (!this.selectedChildrenPaths.isEmpty()) {
-                        //If the selected list is not empty
+                        //If the selected map is not empty
                         for (String key : this.selectedChildrenPaths.keySet()) {
-                            //Removes the non-existence file from the selected list
+                            //Removes the non-existence file from the selected map
                             if (!this.selectedChildrenPaths.get(key).exists()) {
                                 this.selectedChildrenPaths.remove(key);
                             }
                         }
-                        this.selectedListView.getItems().addAll(this.selectedChildrenPaths.keySet()); //Updates the selected list view from the updated selected list
+                        this.selectedListView.getItems().addAll(this.selectedChildrenPaths.keySet()); //Updates the selected list view from the updated selected map
                     }
                 });
                 subStage.show(); //Shows the sub page
