@@ -1,4 +1,4 @@
-package Page;
+package Jialat;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,10 +12,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 
-/** MenuController Abstract Class
- *  An abstract class which implements Initializable and extended by its kind (children) such as the ZipSubPage and UnzipSubPage. There are some methods which needs to be implemented in the children class such as execute(), setExecuteStatus(), checkNameExist(), onPasswordFieldEdited(), and setEncryptionStatus() which are highly dependent on the mode chosen (zip or unzip). This set of classes (MenuController, ZipMenuController, and UnzipMenuController) are used after the main window to get more information about the execution, e.g. the path where the result of zip/unzip will be located.
+/** SubPageController Abstract Class
+ *  An abstract class which implements Initializable and extended by its kind (children) such as the ZipSubPage and UnzipSubPage. There are some methods which needs to be implemented in the children class such as execute(), setExecuteStatus(), checkNameExist(), onPasswordFieldEdited(), and setEncryptionStatus() which are highly dependent on the mode chosen (zip or unzip). This set of classes (SubPageController, ZipSubPageController, and UnzipSubPageController) are used after the main window to get more information about the execution, e.g. the path where the result of zip/unzip will be located.
  */
-public abstract class MenuController implements Initializable {
+public abstract class SubPageController implements Initializable {
 
     @FXML
     public TextField zipPathField = new TextField(); //Zip/Unzip destination path text field

@@ -1,7 +1,7 @@
-package Page.UnzipSubPage;
+package Jialat.UnzipSubPage;
 
-import Page.MenuController;
-import Page.ProgressTask;
+import Jialat.SubPageController;
+import Jialat.ProgressTask;
 
 import java.io.File;
 import java.util.*;
@@ -10,14 +10,14 @@ import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
 
-/** UnzipMenuController Class
- *  The class extends MenuController Abstract Class, it is a sub menu / sub page of the main page. It is used add information or configuration of an unzip before the unzip execution, such as setting the destination path and destination zip file name. This class implements several methods from its parent such as execute, setExecuteStatus, and checkNameExist.
+/** UnzipSubPageController Class
+ *  The class extends SubPageController Abstract Class, it is a sub menu / sub page of the main page. It is used add information or configuration of an unzip before the unzip execution, such as setting the destination path and destination zip file name. This class implements several methods from its parent such as execute, setExecuteStatus, and checkNameExist.
  */
-public class UnzipMenuController extends MenuController {
+public class UnzipSubPageController extends SubPageController {
 
 
     /** execute Method
-     *  The execute method implements the execute method from MainController abstract class, triggered when the execute button is pressed and used to start unzip process. Before the execution, all of the nodes/components of the window will be frozen by calling freezeWindowProperties(). Then, all of the information (destination path, folder name, and file) will be passed into the ZipFile Object (which uses zip4j zipper) once all the information meets the criteria (valid). When a zip file is password protected, a new dialog window wil pop up and ask password from user. If the password is incorrect, the destination folder will be empty. During the execution, there are 2 threads run in the background, the one responsible for the unzip itself and for updating the progress bar.
+     *  The execute method implements the execute method from MainPageController abstract class, triggered when the execute button is pressed and used to start unzip process. Before the execution, all of the nodes/components of the window will be frozen by calling freezeWindowProperties(). Then, all of the information (destination path, folder name, and file) will be passed into the ZipFile Object (which uses zip4j zipper) once all the information meets the criteria (valid). When a zip file is password protected, a new dialog window wil pop up and ask password from user. If the password is incorrect, the destination folder will be empty. During the execution, there are 2 threads run in the background, the one responsible for the unzip itself and for updating the progress bar.
      *  Note that in the current version of the program, only one zip file can be unzipped at a time.
      */
     @Override

@@ -1,7 +1,7 @@
-package Page.ZipSubPage;
+package Jialat.ZipSubPage;
 
-import Page.MenuController;
-import Page.ProgressTask;
+import Jialat.SubPageController;
+import Jialat.ProgressTask;
 
 import java.io.File;
 import java.util.*;
@@ -12,14 +12,14 @@ import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.model.enums.EncryptionMethod;
 
 
-/** ZipMenuController Class
- *  The class extends MenuController Abstract Class, it is a sub menu / sub page of the main page. It is used add information or configuration of a zip before the zip execution, such as setting the destination path, destination zip file name, and password. This class implements several methods from its parent such as execute, setExecuteStatus, checkNameExist, setEncryptStatus, and onPasswordFieldEdited.
+/** ZipSubPageController Class
+ *  The class extends SubPageController Abstract Class, it is a sub menu / sub page of the main page. It is used add information or configuration of a zip before the zip execution, such as setting the destination path, destination zip file name, and password. This class implements several methods from its parent such as execute, setExecuteStatus, checkNameExist, setEncryptStatus, and onPasswordFieldEdited.
  */
-public class ZipMenuController extends MenuController {
+public class ZipSubPageController extends SubPageController {
 
 
     /** execute Method
-     *  The execute method implements the execute method from MainController abstract class, triggered when the execute button is pressed and used to start zip process. Before the execution, all of the nodes/components of the window will be frozen by calling freezeWindowProperties(). Then, all of the information (destination path, name, password, and files) will be passed into the ZipFile Object (which uses zip4j zipper) once all the information meets the criteria (valid). There are two types of zip execution, the one with password and the one without password, this can be set by check/uncheck the encryptCheckBox. During the execution, there are 2 threads run in the background, the one responsible for the zip itself and for updating the progress bar.
+     *  The execute method implements the execute method from MainPageController abstract class, triggered when the execute button is pressed and used to start zip process. Before the execution, all of the nodes/components of the window will be frozen by calling freezeWindowProperties(). Then, all of the information (destination path, name, password, and files) will be passed into the ZipFile Object (which uses zip4j zipper) once all the information meets the criteria (valid). There are two types of zip execution, the one with password and the one without password, this can be set by check/uncheck the encryptCheckBox. During the execution, there are 2 threads run in the background, the one responsible for the zip itself and for updating the progress bar.
      *  Note that in the current version of the program, if multiple files are selected and a folder is also included in that files, the content of the folder will not be zip but only the folder. To zip a folder, the user need to select only that folder, then it will be able to zip all the contents of the folder.
      */
     @Override

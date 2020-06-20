@@ -1,4 +1,4 @@
-package Page;
+package Jialat;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.ProgressBar;

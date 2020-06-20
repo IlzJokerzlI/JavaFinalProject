@@ -1,4 +1,4 @@
-package Page;
+package Jialat;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

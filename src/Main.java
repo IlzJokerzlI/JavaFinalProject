@@ -1,5 +1,3 @@
-package Page.MainPage;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +18,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("mainFXML.fxml")); //Loads an object hierarchy from a FXML document.
+        Parent root = FXMLLoader.load(getClass().getResource("Jialat/MainPage/mainFXML.fxml")); //Loads an object hierarchy from a FXML document.
         primaryStage.setTitle("Jialat Zipper"); //Sets title
         primaryStage.setScene(new Scene(root)); //Sets scene
         primaryStage.setMinHeight(600); //Sets minimum window height

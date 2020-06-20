@@ -1,6 +1,6 @@
-package Page.MainPage;
+package Jialat.MainPage;
 
-import Page.MenuController;
+import Jialat.SubPageController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,10 +26,10 @@ import java.util.List;
 import java.util.Map;
 
 
-/** MainController Class
- *  The main controller class is the main page of the Jialat Zipper Application. It is mainly used to find any files files to zip or zip files to unzip.
+/** MainPageController Class
+ *  The MainPageController class is the main page of the Jialat Zipper Application. It is mainly used to find any files files to zip or zip files to unzip.
  */
-public class MainController implements Initializable{
+public class MainPageController implements Initializable{
 
     public TextField pathField; // Text field to search for path
     public Button clearPathButton; //Button to clear path text field
@@ -271,7 +271,7 @@ public class MainController implements Initializable{
                 Parent subRoot = loader.load(); //Assign loader
                 Scene subScene = new Scene(subRoot); //Instantiate a new Scene
                 Stage subStage = new Stage(); //Instantiate a new Stage
-                MenuController controller = loader.getController(); //Assign the controller
+                SubPageController controller = loader.getController(); //Assign the controller
                 controller.initData(subStage, this.currentPath, this.selectedChildrenPaths); //Calls a method from the sub page to pass in some data
 
                 subStage.setScene(subScene); //Set the scene
